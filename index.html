@@ -96,6 +96,9 @@
       border-radius:999px;
       transition:.2s ease;
     }
+    .nav a.active{
+      font-weight:700;
+    }
     .nav a:hover{ background:#fff; box-shadow:var(--glow); }
 
     .hero{
@@ -287,7 +290,8 @@
       position:absolute; inset:-20%;
       background:radial-gradient(500px 260px at 20% 20%, rgba(14,165,167,.2), transparent 60%),
                  radial-gradient(500px 260px at 80% 80%, rgba(15,118,110,.2), transparent 60%);
-      opacity:.8;
+      opacity:.85;
+      z-index:1;
     }
     .project-preview .preview-inner{
       position:relative; z-index:2;
@@ -617,6 +621,9 @@
       .projects-head{ text-align:center; justify-content:center; }
       .projects .subtitle{ margin-left:auto; margin-right:auto; }
       .skills h2{ text-align:center; }
+      .skills-grid{ justify-items:center; }
+      .orbital{ width:min(100%, 340px); height:260px; }
+      .skill-chip{ white-space:nowrap; font-size:11px; padding:6px 10px; }
       .divider{ margin:20px 0; }
       .projects{ padding:16px 0 36px; }
       .skills{ padding:20px 0 36px; }
@@ -795,7 +802,7 @@
         </div>
 
         <div class="project-list">
-          <div class="project-item reveal" data-title="Theeram Foods" data-desc="Restaurant needed a clear menu and faster inquiries. I built a static site with featured items, location details, and quick contact." data-tags="Restaurant|Menu Focus|More Inquiries" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/etheeramfoods/" data-hue="teal">
+          <div class="project-item reveal" data-title="Theeram Foods" data-desc="Restaurant needed a clear menu and faster inquiries. I built a static site with featured items, location details, and quick contact." data-tags="Restaurant|Menu Focus|More Inquiries" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/etheeramfoods/" data-image="src/e_theeram_foods_web.png" data-hue="teal">
             <h4>Theeram Foods</h4>
             <span>Restaurant · Clear menu, easy contact</span>
             <div class="preview-meta">
@@ -811,7 +818,7 @@
               </a>
             </div>
           </div>
-          <div class="project-item reveal" data-title="Capital Mandi House" data-desc="Food business needed clear offerings and trust. I built a static site with product highlights and inquiry‑ready CTAs." data-tags="Food Business|Clear Offerings|Inquiry CTA" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/Capital_mandhi_project/" data-hue="slate">
+          <div class="project-item reveal" data-title="Capital Mandi House" data-desc="Food business needed clear offerings and trust. I built a static site with product highlights and inquiry‑ready CTAs." data-tags="Food Business|Clear Offerings|Inquiry CTA" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/Capital_mandhi_project/" data-image="src/capital_mandi_web.png" data-hue="slate">
             <h4>Capital Mandi House</h4>
             <span>Food business · Clear offerings, more leads</span>
             <div class="preview-meta">
@@ -827,7 +834,7 @@
               </a>
             </div>
           </div>
-          <div class="project-item reveal" data-title="Greenleaf Gym Studio" data-desc="Fitness studio needed a stronger online presence and quick sign‑ups. I built a static site with class highlights, pricing, and fast contact." data-tags="Fitness Studio|Class Highlights|Sign‑ups" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/Greenleaf_gym_project/" data-hue="mint">
+          <div class="project-item reveal" data-title="Greenleaf Gym Studio" data-desc="Fitness studio needed a stronger online presence and quick sign‑ups. I built a static site with class highlights, pricing, and fast contact." data-tags="Fitness Studio|Class Highlights|Sign‑ups" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/Greenleaf_gym_project/" data-image="src/green_leaf_gym_web.png" data-hue="mint">
             <h4>Greenleaf Gym Studio</h4>
             <span>Fitness · Strong showcase, fast sign‑ups</span>
             <div class="preview-meta">
@@ -982,6 +989,33 @@
     document.querySelectorAll(".nav-links a").forEach(link => {
       link.addEventListener("click", () => siteNav.classList.remove("open"));
     });
+
+    // Active nav link on click
+    const navLinks = document.querySelectorAll(".nav-links a");
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+      });
+    });
+
+    // Active nav link on scroll
+    const sections = ["projects", "skills", "process", "contact"].map(id => document.getElementById(id));
+    const navMap = {};
+    navLinks.forEach(link => {
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("#")) navMap[href.slice(1)] = link;
+    });
+    const setActiveById = (id) => {
+      navLinks.forEach(l => l.classList.remove("active"));
+      if (navMap[id]) navMap[id].classList.add("active");
+    };
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActiveById(entry.target.id);
+      });
+    }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
+    sections.forEach(sec => sec && sectionObserver.observe(sec));
 
     // CTA scroll
     const getWebsiteBtn = document.getElementById("getWebsiteBtn");
