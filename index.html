@@ -562,6 +562,35 @@
       border:6px solid transparent;
       border-top-color:#0e0f12;
     }
+    .static-info{
+      position:relative;
+      cursor:pointer;
+      font-weight:inherit;
+      text-decoration:none;
+    }
+    .static-info[data-tooltip]:hover::after{
+      content:attr(data-tooltip);
+      position:absolute;
+      left:50%;
+      bottom:120%;
+      transform:translateX(-50%);
+      background:#0e0f12;
+      color:#fff;
+      font-size:11px;
+      padding:6px 8px;
+      border-radius:8px;
+      white-space:nowrap;
+      box-shadow:0 10px 20px rgba(0,0,0,.2);
+    }
+    .static-info[data-tooltip]:hover::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:108%;
+      transform:translateX(-50%);
+      border:6px solid transparent;
+      border-top-color:#0e0f12;
+    }
     .modal{
       position:fixed;
       inset:0;
@@ -869,7 +898,7 @@
 
       <div class="hero-content reveal">
         <span class="pill">SreeWeb · Business Website Partner</span>
-        <h1>I build fast, modern static websites for businesses.</h1>
+        <h1>I build fast, modern <span class="static-info" id="staticInfo" data-tooltip="Know What is Static">static</span> websites for businesses.</h1>
         <p>Clean UI/UX, responsive design, and fast performance that help visitors trust you and contact you.</p>
         <div class="hero-cta">
           <button class="btn primary" id="getWebsiteBtn">Get Website
@@ -1074,6 +1103,24 @@
     </div>
   </div>
 
+  <div class="modal" id="staticModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="staticModalTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticModalTitle">Know More about Static</h3>
+        <button class="modal-close" id="staticModalClose" aria-label="Close">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6l-12 12"/>
+          </svg>
+        </button>
+      </div>
+      <p style="margin:0 0 6px; color:var(--muted); font-size:13px;">What is static website?</p>
+      <p style="margin:0; color:var(--ink); line-height:1.6; font-size:14px;">
+        A static website is a fast, simple website that shows your business information clearly online. It loads quickly,
+        works reliably, and is perfect for showcasing services, products, or contact details without any complexity.
+      </p>
+    </div>
+  </div>
+
   <script>
     // Parallax floats
     const floats = document.querySelectorAll(".float-card");
@@ -1219,6 +1266,31 @@
       contactModalClose.addEventListener("click", () => {
         contactModal.classList.remove("open");
         contactModal.setAttribute("aria-hidden", "true");
+      });
+    }
+
+    // Static info modal
+    const staticInfo = document.getElementById("staticInfo");
+    const staticModal = document.getElementById("staticModal");
+    const staticModalClose = document.getElementById("staticModalClose");
+    if (staticInfo && staticModal) {
+      staticInfo.addEventListener("click", () => {
+        staticModal.classList.add("open");
+        staticModal.setAttribute("aria-hidden", "false");
+      });
+    }
+    if (staticModal) {
+      staticModal.addEventListener("click", (e) => {
+        if (e.target === staticModal) {
+          staticModal.classList.remove("open");
+          staticModal.setAttribute("aria-hidden", "true");
+        }
+      });
+    }
+    if (staticModalClose) {
+      staticModalClose.addEventListener("click", () => {
+        staticModal.classList.remove("open");
+        staticModal.setAttribute("aria-hidden", "true");
       });
     }
 
