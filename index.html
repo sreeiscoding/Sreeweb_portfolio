@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SreeWeb — Premium Static Websites</title>
+  <title>SreeWeb — Fast Static Websites for Business</title>
   <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -55,6 +55,7 @@
       top:18px; left:50%;
       transform:translateX(-50%);
       display:flex; gap:10px;
+      align-items:center;
       padding:10px 14px;
       border-radius:999px;
       background:var(--glass);
@@ -62,6 +63,30 @@
       backdrop-filter: blur(10px);
       box-shadow: var(--shadow);
       z-index:10;
+    }
+    .nav .nav-links{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .nav-toggle{
+      display:none;
+      border:1px solid rgba(0,0,0,.08);
+      background:#fff;
+      color:var(--ink);
+      border-radius:999px;
+      padding:8px 10px;
+      cursor:pointer;
+      line-height:0;
+    }
+    .nav-toggle svg{
+      width:18px;height:18px;
+      stroke:currentColor; fill:none; stroke-width:1.8;
+      stroke-linecap:round; stroke-linejoin:round;
+    }
+    .nav a:first-child{
+      font-weight:700;
+      letter-spacing:.02em;
     }
     .nav a{
       text-decoration:none;
@@ -170,7 +195,7 @@
       position:absolute;
       width:98px;height:98px;
       border-radius:20px;
-      background:linear-gradient(145deg,#fff,#f1f4f6);
+      background:#fff;
       box-shadow:var(--shadow);
       display:flex; align-items:flex-end; justify-content:center;
       overflow:hidden;
@@ -185,21 +210,20 @@
       color:var(--muted);
       text-align:center;
     }
-    .float-card:before{
-      content:"";
-      position:absolute; inset:-30% -30% auto auto;
-      width:120px;height:120px;
-      background:radial-gradient(circle at 30% 30%, rgba(14,165,167,.4), transparent 60%);
-    }
-    .float-card .initials{
-      position:absolute; top:10px; left:10px;
-      font-family:"Inconsolata", sans-serif;
-      font-size:20px;
-      color:var(--ink);
-      background:#fff;
+    .float-card:before{ content:none; }
+    .float-card .float-icon{
+      position:absolute; top:14px; left:14px;
+      width:28px; height:28px;
+      display:inline-flex; align-items:center; justify-content:center;
+      color:#0f766e;
+      background:rgba(15,118,110,.08);
       border-radius:10px;
-      padding:6px 8px;
       box-shadow:0 8px 20px rgba(0,0,0,.08);
+    }
+    .float-card .float-icon svg{
+      width:18px; height:18px;
+      stroke:currentColor; fill:none; stroke-width:1.8;
+      stroke-linecap:round; stroke-linejoin:round;
     }
 
     /* float positions */
@@ -257,6 +281,7 @@
       position:relative;
       overflow:hidden;
       border:1px solid rgba(0,0,0,.05);
+      display:flex;
     }
     .project-preview .preview-bg{
       position:absolute; inset:-20%;
@@ -266,6 +291,9 @@
     }
     .project-preview .preview-inner{
       position:relative; z-index:2;
+      display:flex;
+      flex-direction:column;
+      flex:1;
     }
     .project-preview h3{
       font-family:"Inconsolata", sans-serif;
@@ -275,6 +303,65 @@
       color:var(--muted);
       line-height:1.6;
       max-width:460px;
+    }
+    .preview-meta{
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-top:auto;
+    }
+    .preview-link{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .preview-link .arrow{
+      width:14px;
+      height:14px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .preview-stacks{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .stack-pill{
+      padding:5px 10px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.08);
+      font-size:11px;
+      color:var(--muted);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .stack-pill::before{
+      content:"";
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--stack-color, #9ca3af);
+      box-shadow:0 0 0 3px rgba(0,0,0,.03);
+    }
+    .stack-pill[data-stack="HTML"]{ --stack-color:#f97316; }
+    .stack-pill[data-stack="CSS"]{ --stack-color:#0ea5e9; }
+    .stack-pill[data-stack="JavaScript"]{ --stack-color:#facc15; }
+    .preview-link{
+      text-decoration:none;
+      color:var(--ink);
+      font-size:13px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.08);
     }
     .project-tags{
       display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;
@@ -311,6 +398,19 @@
     .project-item span{
       color:var(--muted);
       font-size:13px;
+    }
+    .project-item .preview-meta{
+      width:100%;
+      margin-top:10px;
+      gap:10px;
+    }
+    .project-item .stack-pill{
+      padding:4px 8px;
+      font-size:10px;
+    }
+    .project-item .preview-link{
+      padding:6px 10px;
+      font-size:12px;
     }
 
     /* Skills */
@@ -429,6 +529,34 @@
       font-size:13px;
       text-align:center;
     }
+    .footer a{
+      color:inherit;
+      text-decoration:none;
+      position:relative;
+    }
+    .footer a[data-tooltip]:hover::after{
+      content:attr(data-tooltip);
+      position:absolute;
+      left:50%;
+      bottom:120%;
+      transform:translateX(-50%);
+      background:#0e0f12;
+      color:#fff;
+      font-size:11px;
+      padding:6px 8px;
+      border-radius:8px;
+      white-space:nowrap;
+      box-shadow:0 10px 20px rgba(0,0,0,.2);
+    }
+    .footer a[data-tooltip]:hover::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:108%;
+      transform:translateX(-50%);
+      border:6px solid transparent;
+      border-top-color:#0e0f12;
+    }
 
     .reveal{ opacity:0; transform:translateY(18px); transition: .6s ease; }
     .reveal.in{ opacity:1; transform:translateY(0); }
@@ -439,55 +567,169 @@
       .projects-grid, .skills-grid, .contact-card{ grid-template-columns:1fr; }
       .nav{ top:12px; }
       .hero{ min-height:78vh; }
-      .hero-floats{ display:none; }
       .hero-content{ margin-top:0; }
     }
 
     @media (max-width: 640px){
-      .nav{ display:none; }
-      .hero{ padding-top:110px; }
+      .nav{
+        left:12px;
+        right:12px;
+        transform:none;
+        justify-content:space-between;
+        border-radius:16px;
+      }
+      .nav-toggle{ display:inline-flex; align-items:center; }
+      .nav .nav-links{
+        position:absolute;
+        top:62px;
+        right:0;
+        background:var(--glass);
+        border:1px solid rgba(0,0,0,.05);
+        border-radius:16px;
+        padding:10px;
+        box-shadow: var(--shadow);
+        display:none;
+        flex-direction:column;
+        gap:6px;
+        min-width:180px;
+        align-items:flex-start;
+      }
+      .nav.open .nav-links{ display:flex; }
+      .hero{ padding-top:0; padding-bottom:0; overflow:hidden; }
       .project-preview{ min-height:320px; }
+      .projects-head{ text-align:center; justify-content:center; }
+      .projects .subtitle{ margin-left:auto; margin-right:auto; }
+      .skills h2{ text-align:center; }
+      .divider{ margin:20px 0; }
+      .projects{ padding:16px 0 36px; }
+      .skills{ padding:20px 0 36px; }
+      .flow{ margin:30px 0; padding:24px 0; }
+      .contact{ padding:16px 0 40px; }
+      .hero-floats{
+        position:absolute;
+        inset:0;
+        width:120%;
+        left:-10%;
+        height:300px;
+        margin:0;
+        overflow:hidden;
+        display:block;
+        padding:0;
+        z-index:1;
+        opacity:.6;
+        transform:scale(0.72);
+        transform-origin: top center;
+      }
+      .hero-content{ z-index:2; }
     }
   </style>
 </head>
 <body>
   <div class="noise"></div>
 
-  <nav class="nav">
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#process">Process</a>
-    <a href="#contact">Hire</a>
+  <nav class="nav" id="siteNav">
+    <a href="#" aria-label="SreeWeb">Sree &#9889; Web</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Hire</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
   </nav>
 
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-floats" id="heroFloats">
-        <div class="float-card fc1" data-speed="0.6"><span class="initials">SW</span><div class="badge">Founder</div></div>
-        <div class="float-card fc2" data-speed="0.9"><span class="initials">UX</span><div class="badge">Strategy</div></div>
-        <div class="float-card fc3" data-speed="0.7"><span class="initials">UI</span><div class="badge">Design</div></div>
-        <div class="float-card fc4" data-speed="0.8"><span class="initials">FE</span><div class="badge">Frontend</div></div>
-        <div class="float-card fc5" data-speed="0.9"><span class="initials">JS</span><div class="badge">Performance</div></div>
-        <div class="float-card fc6" data-speed="0.6"><span class="initials">SEO</span><div class="badge">Growth</div></div>
-        <div class="float-card fc7" data-speed="0.7"><span class="initials">CR</span><div class="badge">Conversion</div></div>
-        <div class="float-card fc8" data-speed="0.7"><span class="initials">GL</span><div class="badge">Glass UI</div></div>
-        <div class="float-card fc9" data-speed="0.5"><span class="initials">3D</span><div class="badge">Depth</div></div>
-        <div class="float-card fc10" data-speed="0.6"><span class="initials">AI</span><div class="badge">Automation</div></div>
-        <div class="float-card fc11" data-speed="0.5"><span class="initials">AN</span><div class="badge">Animation</div></div>
-        <div class="float-card fc12" data-speed="0.8"><span class="initials">PS</span><div class="badge">Polish</div></div>
+        <div class="float-card fc1" data-speed="0.6">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 20v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/><circle cx="12" cy="8" r="3"/></svg>
+          </span>
+          <div class="badge">Client Sites</div>
+        </div>
+        <div class="float-card fc2" data-speed="0.9">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M8 7v10M16 7v10"/></svg>
+          </span>
+          <div class="badge">Client‑First UI</div>
+        </div>
+        <div class="float-card fc3" data-speed="0.7">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="14" height="10" rx="2"/><path d="M17 8h4v9h-6"/></svg>
+          </span>
+          <div class="badge">Responsive Design</div>
+        </div>
+        <div class="float-card fc4" data-speed="0.8">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>
+          </span>
+          <div class="badge">Speed Focused</div>
+        </div>
+        <div class="float-card fc5" data-speed="0.9">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </span>
+          <div class="badge">Local Visibility</div>
+        </div>
+        <div class="float-card fc6" data-speed="0.6">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>
+          </span>
+          <div class="badge">Clean Interfaces</div>
+        </div>
+        <div class="float-card fc7" data-speed="0.7">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 6h12a4 4 0 0 1 4 4v8H8l-4 3z"/><path d="M8 11h8"/></svg>
+          </span>
+          <div class="badge">More Inquiries</div>
+        </div>
+        <div class="float-card fc8" data-speed="0.7">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 12c3-6 9-6 16 0"/><path d="M4 16c3-4 9-4 16 0"/></svg>
+          </span>
+          <div class="badge">Smooth Motion</div>
+        </div>
+        <div class="float-card fc9" data-speed="0.5">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>
+          </span>
+          <div class="badge">Quality Checks</div>
+        </div>
+        <div class="float-card fc10" data-speed="0.6">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 11h18"/><path d="M7 6h10l-2 12H9z"/></svg>
+          </span>
+          <div class="badge">Clear Messaging</div>
+        </div>
+        <div class="float-card fc11" data-speed="0.5">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="2.5"/><path d="M12 10v8"/><path d="M7 22h10"/></svg>
+          </span>
+          <div class="badge">Inclusive UX</div>
+        </div>
+        <div class="float-card fc12" data-speed="0.8">
+          <span class="float-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.5L20 10l-4.6 2.2L12 18l-3.4-5.8L4 10l5.4-1.5z"/></svg>
+          </span>
+          <div class="badge">Premium Finish</div>
+        </div>
       </div>
 
       <div class="hero-content reveal">
-        <span class="pill">SreeWeb · Static Website Studio</span>
-        <h1>Premium static websites that load fast and look sharp.</h1>
-        <p>I build high‑quality static sites for business owners—clean UI/UX, responsive layouts, and performance that drives trust.</p>
+        <span class="pill">SreeWeb · Business Website Partner</span>
+        <h1>I build fast, modern static websites for businesses.</h1>
+        <p>Clean UI/UX, responsive design, and fast performance that help visitors trust you and contact you.</p>
         <div class="hero-cta">
-          <button class="btn primary">Hire for a Website
+          <button class="btn primary">Get Website
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 9h16M9 9V7a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v2M6 9v8a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/>
             </svg>
           </button>
-          <button class="btn ghost">View Work
+          <button class="btn ghost">View Projects
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
             </svg>
@@ -502,40 +744,84 @@
   <section class="projects" id="projects">
     <div class="wrap">
       <div class="projects-head reveal">
-        <h2>Projects built for speed, clarity, and business impact</h2>
-        <p class="subtitle">A focused set of static sites designed to load instantly, communicate clearly, and support real business goals.</p>
+        <h2>Projects built to turn visitors into inquiries</h2>
+        <p class="subtitle">Built for local businesses that need clarity, speed, and a direct path to contact.</p>
       </div>
 
       <div class="projects-grid">
         <div class="project-preview reveal" id="projectPreview">
           <div class="preview-bg" id="previewBg"></div>
           <div class="preview-inner">
-            <h3 id="previewTitle">NovaLead Agency</h3>
-            <p id="previewDesc">A fast static agency site with crisp UI, clean flow, and clear conversion paths.</p>
+            <h3 id="previewTitle">Theeram Foods</h3>
+            <p id="previewDesc">Restaurant needed a clear menu and faster inquiries. I built a static site with featured items, location details, and quick contact.</p>
             <div class="project-tags" id="previewTags">
-              <span class="tag">Performance</span>
-              <span class="tag">Clean UI</span>
-              <span class="tag">Business Focus</span>
+              <span class="tag">Restaurant</span>
+              <span class="tag">Menu Focus</span>
+              <span class="tag">More Inquiries</span>
+            </div>
+            <div class="preview-meta">
+              <div class="preview-stacks" id="previewStacks">
+                <span class="stack-pill" data-stack="HTML">HTML</span>
+                <span class="stack-pill" data-stack="CSS">CSS</span>
+                <span class="stack-pill" data-stack="JavaScript">JavaScript</span>
+              </div>
+              <a class="preview-link" id="previewLink" href="https://sreeiscoding.github.io/etheeramfoods/" aria-label="Visit Site">Visit Site
+                <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17L17 7M9 7h8v8"/>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
 
         <div class="project-list">
-          <div class="project-item reveal" data-title="NovaLead Agency" data-desc="A fast static agency site with crisp UI, clean flow, and clear conversion paths." data-tags="Performance|Clean UI|Business Focus" data-hue="teal">
-            <h4>NovaLead Agency</h4>
-            <span>Static agency site · 3 weeks</span>
+          <div class="project-item reveal" data-title="Theeram Foods" data-desc="Restaurant needed a clear menu and faster inquiries. I built a static site with featured items, location details, and quick contact." data-tags="Restaurant|Menu Focus|More Inquiries" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/etheeramfoods/" data-hue="teal">
+            <h4>Theeram Foods</h4>
+            <span>Restaurant · Clear menu, easy contact</span>
+            <div class="preview-meta">
+              <div class="preview-stacks">
+                <span class="stack-pill" data-stack="HTML">HTML</span>
+                <span class="stack-pill" data-stack="CSS">CSS</span>
+                <span class="stack-pill" data-stack="JavaScript">JavaScript</span>
+              </div>
+              <a class="preview-link" href="https://sreeiscoding.github.io/etheeramfoods/" aria-label="Visit Site">Visit Site
+                <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17L17 7M9 7h8v8"></path>
+                </svg>
+              </a>
+            </div>
           </div>
-          <div class="project-item reveal" data-title="Vanta Commerce" data-desc="A premium static brand site with fast navigation, clean UI, and sharp visual hierarchy." data-tags="Responsive|Visual Clarity|Speed" data-hue="slate">
-            <h4>Vanta Commerce</h4>
-            <span>Static brand site · 4 weeks</span>
+          <div class="project-item reveal" data-title="Capital Mandi House" data-desc="Food business needed clear offerings and trust. I built a static site with product highlights and inquiry‑ready CTAs." data-tags="Food Business|Clear Offerings|Inquiry CTA" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/Capital_mandhi_project/" data-hue="slate">
+            <h4>Capital Mandi House</h4>
+            <span>Food business · Clear offerings, more leads</span>
+            <div class="preview-meta">
+              <div class="preview-stacks">
+                <span class="stack-pill" data-stack="HTML">HTML</span>
+                <span class="stack-pill" data-stack="CSS">CSS</span>
+                <span class="stack-pill" data-stack="JavaScript">JavaScript</span>
+              </div>
+              <a class="preview-link" href="https://sreeiscoding.github.io/Capital_mandhi_project/" aria-label="Visit Site">Visit Site
+                <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17L17 7M9 7h8v8"></path>
+                </svg>
+              </a>
+            </div>
           </div>
-          <div class="project-item reveal" data-title="Atlas Real Estate" data-desc="A responsive static site that highlights credibility, listings, and a confident buyer journey." data-tags="Responsive|Trust|Clarity" data-hue="sand">
-            <h4>Atlas Real Estate</h4>
-            <span>Static property site · 2 weeks</span>
-          </div>
-          <div class="project-item reveal" data-title="Lumen Studio" data-desc="A clean static portfolio with bold layout, smooth flow, and fast performance." data-tags="Clean UI|Fast Load|Presentation" data-hue="mint">
-            <h4>Lumen Studio</h4>
-            <span>Static studio site · 3 weeks</span>
+          <div class="project-item reveal" data-title="Greenleaf Gym Studio" data-desc="Fitness studio needed a stronger online presence and quick sign‑ups. I built a static site with class highlights, pricing, and fast contact." data-tags="Fitness Studio|Class Highlights|Sign‑ups" data-stacks="HTML|CSS|JavaScript" data-url="https://sreeiscoding.github.io/Greenleaf_gym_project/" data-hue="mint">
+            <h4>Greenleaf Gym Studio</h4>
+            <span>Fitness · Strong showcase, fast sign‑ups</span>
+            <div class="preview-meta">
+              <div class="preview-stacks">
+                <span class="stack-pill" data-stack="HTML">HTML</span>
+                <span class="stack-pill" data-stack="CSS">CSS</span>
+                <span class="stack-pill" data-stack="JavaScript">JavaScript</span>
+              </div>
+              <a class="preview-link" href="https://sreeiscoding.github.io/Greenleaf_gym_project/" aria-label="Visit Site">Visit Site
+                <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17L17 7M9 7h8v8"></path>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -544,19 +830,19 @@
 
   <section class="skills" id="skills">
     <div class="wrap">
-      <h2 class="reveal">Focused on speed, clarity, and responsive detail</h2>
+      <h2 class="reveal">Services that help clients contact you</h2>
       <div class="skills-grid">
         <div class="orbital reveal">
           <div class="orbit"></div>
           <div class="orbit"></div>
-          <div class="skill-chip">Design Systems</div>
-          <div class="skill-chip">Interaction</div>
-          <div class="skill-chip">Motion</div>
-          <div class="skill-chip">Performance</div>
-          <div class="skill-chip">Accessibility</div>
+          <div class="skill-chip">Static Websites</div>
+          <div class="skill-chip">Landing Pages</div>
+          <div class="skill-chip">Portfolio Websites</div>
+          <div class="skill-chip">Responsive Design</div>
+          <div class="skill-chip">Fast Performance</div>
         </div>
         <div class="skills-copy reveal">
-          I design static websites with clean UI/UX, sharp typography, and lean code. Every build is responsive, fast, and aligned with business goals.
+          I help businesses present their services clearly with fast, clean, responsive static websites that drive inquiries.
         </div>
       </div>
     </div>
@@ -564,9 +850,9 @@
 
   <section class="flow" id="process">
     <div class="wrap flow-inner">
-      <h3>From brief to launch, clean and fast</h3>
-      <p>I turn business goals into a premium static site—lightweight, responsive, and built for speed.</p>
-      <button class="btn ghost" style="background:#fff;color:#0e0f12;">Start a Website
+      <h3>Need a website that brings in clients?</h3>
+      <p>I build static sites that load fast, look premium, and guide visitors to contact you.</p>
+      <button class="btn ghost" style="background:#fff;color:#0e0f12;">Get Website
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 3l2.4 5.6L20 11l-5.6 2.4L12 19l-2.4-5.6L4 11l5.6-2.4z"/>
         </svg>
@@ -578,16 +864,16 @@
     <div class="wrap">
       <div class="contact-card reveal">
         <div>
-          <h2>Let’s build a fast, premium static site</h2>
-          <p>Tell me about your business and goals. I’ll craft a clean, responsive site that looks premium and loads instantly.</p>
+          <h2>Let’s build a site that wins clients</h2>
+          <p>Share your goals. I’ll deliver a fast, clean static website designed to earn trust and drive inquiries.</p>
         </div>
         <div class="cta">
-          <button class="btn primary">Hire for a Website
+          <button class="btn primary">Contact Me
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 9h16M9 9V7a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v2M6 9v8a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/>
             </svg>
           </button>
-          <button class="btn ghost">View Work
+          <button class="btn ghost">View Projects
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 4h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H7l-4 3V6a2 2 0 0 1 2-2z"/>
               <path d="M8 9h8M8 13h6"/>
@@ -598,7 +884,10 @@
     </div>
   </section>
 
-  <footer class="footer">© 2026 SreeWeb — Premium Static Websites</footer>
+  <footer class="footer">
+    © 2026 SreeWeb — Fast, Clean Static Websites
+    <p>Made with &#10084; by <a href="https://sreeiscoding.github.io/Sreeweb_portfolio/" data-tooltip="Visit Sree ?" aria-label="Visit Sree">Sree</a></p>
+  </footer>
 
   <script>
     // Parallax floats
@@ -625,6 +914,8 @@
     const previewTitle = document.getElementById("previewTitle");
     const previewDesc = document.getElementById("previewDesc");
     const previewTags = document.getElementById("previewTags");
+    const previewStacks = document.getElementById("previewStacks");
+    const previewLink = document.getElementById("previewLink");
     const previewBg = document.getElementById("previewBg");
 
     const hueMap = {
@@ -645,9 +936,31 @@
           tag.textContent = t.trim();
           previewTags.appendChild(tag);
         });
+        previewStacks.innerHTML = "";
+        (item.dataset.stacks || "HTML|CSS|JavaScript").split("|").forEach(s=>{
+          const pill = document.createElement("span");
+          pill.className = "stack-pill";
+          pill.textContent = s.trim();
+          pill.dataset.stack = s.trim();
+          previewStacks.appendChild(pill);
+        });
+        previewLink.href = item.dataset.url || "#";
         const hue = item.dataset.hue;
         previewBg.style.background = hueMap[hue] || hueMap.teal;
       });
+    });
+
+    // Mobile nav toggle
+    const siteNav = document.getElementById("siteNav");
+    const navToggle = document.getElementById("navToggle");
+    navToggle.addEventListener("click", () => {
+      siteNav.classList.toggle("open");
+    });
+    document.addEventListener("click", (e) => {
+      if (!siteNav.contains(e.target)) siteNav.classList.remove("open");
+    });
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => siteNav.classList.remove("open"));
     });
   </script>
 </body>
