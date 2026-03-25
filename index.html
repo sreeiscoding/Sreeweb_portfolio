@@ -561,6 +561,88 @@
       border:6px solid transparent;
       border-top-color:#0e0f12;
     }
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(14,15,18,.45);
+      backdrop-filter: blur(6px);
+      z-index:100;
+      padding:20px;
+    }
+    .modal.open{ display:flex; }
+    .modal-card{
+      width:min(92vw, 420px);
+      background:#fff;
+      border-radius:20px;
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:var(--shadow);
+      padding:20px;
+    }
+    .modal-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .modal-title{
+      font-size:18px;
+      font-weight:700;
+      margin:0;
+      text-align:center;
+      flex:1;
+    }
+    .modal-close{
+      border:none;
+      background:#f3f4f6;
+      border-radius:999px;
+      width:30px;
+      height:30px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .modal-close svg{
+      width:16px;
+      height:16px;
+      stroke:var(--ink);
+      fill:none;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .contact-options{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .contact-option{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(0,0,0,.08);
+      text-decoration:none;
+      color:var(--ink);
+    }
+    .contact-option .icon{
+      width:18px;
+      height:18px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .contact-option.disabled{
+      opacity:.45;
+      pointer-events:none;
+      filter:grayscale(1);
+    }
 
     .reveal{ opacity:0; transform:translateY(18px); transition: .6s ease; }
     .reveal.in{ opacity:1; transform:translateY(0); }
@@ -648,6 +730,13 @@
       }
       .hero-content{ z-index:2; }
       .fc1{ transform: translateY(-10px); }
+      .modal-card{
+        width:100%;
+        padding:16px;
+        border-radius:16px;
+      }
+      .modal-title{ font-size:17px; }
+      .contact-option{ padding:10px 12px; }
     }
   </style>
 </head>
@@ -895,12 +984,12 @@
           <p>Share your goals. I’ll deliver a fast, clean static website designed to earn trust and drive inquiries.</p>
         </div>
         <div class="cta">
-          <button class="btn primary">Contact Me
+          <button class="btn primary" id="contactMeBtn">Contact Me
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 9h16M9 9V7a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v2M6 9v8a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/>
             </svg>
           </button>
-          <button class="btn ghost">View Projects
+          <button class="btn ghost" id="contactViewProjectsBtn">View Projects
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 4h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H7l-4 3V6a2 2 0 0 1 2-2z"/>
               <path d="M8 9h8M8 13h6"/>
@@ -915,6 +1004,43 @@
     © 2026 SreeWeb — Fast, Clean Static Websites
     <p>Made with &#10084; by <a href="https://sreeiscoding.github.io/Sreeweb_portfolio/" data-tooltip="Visit Sree ?" aria-label="Visit Sree">Sree</a></p>
   </footer>
+
+  <div class="modal" id="contactModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="contactModalTitle">Choose your contact method</h3>
+        <button class="modal-close" id="contactModalClose" aria-label="Close">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6l-12 12"/>
+          </svg>
+        </button>
+      </div>
+        <div class="contact-options">
+          <a class="contact-option" id="gmailLink" href="https://mail.google.com/mail/?view=cm&fs=1&to=renjansree10@gmail.com" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16v12H4z"/>
+              <path d="M4 7l8 6 8-6"/>
+            </svg>
+            Gmail
+          </a>
+          <div class="contact-option disabled">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12a8.5 8.5 0 0 1-12.7 7.4L3 21l1.6-4.8A8.5 8.5 0 1 1 21 12z"/>
+              <path d="M8.8 9.2c.4-.4 1-.5 1.4-.1l.9.9c.4.4.4 1 0 1.4l-.6.6c.7 1.3 1.7 2.3 3 3l.6-.6c.4-.4 1-.4 1.4 0l.9.9c.4.4.3 1-.1 1.4l-.5.5c-.5.5-1.2.7-1.9.5-2-.5-3.7-1.9-5.2-3.4S6.8 11 6.3 9c-.2-.7 0-1.4.5-1.9z"/>
+            </svg>
+            WhatsApp
+          </div>
+          <div class="contact-option disabled">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+            <circle cx="17" cy="7" r="1"/>
+          </svg>
+          Instagram
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Parallax floats
@@ -1016,6 +1142,61 @@
       });
     }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
     sections.forEach(sec => sec && sectionObserver.observe(sec));
+
+    // Contact CTA buttons
+    const contactMeBtn = document.getElementById("contactMeBtn");
+    if (contactMeBtn) {
+      contactMeBtn.addEventListener("click", () => {
+        const modal = document.getElementById("contactModal");
+        if (modal) {
+          modal.classList.add("open");
+          modal.setAttribute("aria-hidden", "false");
+        }
+      });
+    }
+    const contactViewProjectsBtn = document.getElementById("contactViewProjectsBtn");
+    if (contactViewProjectsBtn) {
+      contactViewProjectsBtn.addEventListener("click", () => {
+        const target = document.getElementById("projects");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+
+    // Modal close
+    const contactModal = document.getElementById("contactModal");
+    const contactModalClose = document.getElementById("contactModalClose");
+    if (contactModal) {
+      contactModal.addEventListener("click", (e) => {
+        if (e.target === contactModal) {
+          contactModal.classList.remove("open");
+          contactModal.setAttribute("aria-hidden", "true");
+        }
+      });
+    }
+    if (contactModalClose) {
+      contactModalClose.addEventListener("click", () => {
+        contactModal.classList.remove("open");
+        contactModal.setAttribute("aria-hidden", "true");
+      });
+    }
+
+    // Gmail deep-link for mobile
+    const gmailLink = document.getElementById("gmailLink");
+    if (gmailLink) {
+      gmailLink.addEventListener("click", (e) => {
+        const ua = navigator.userAgent || "";
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
+        if (!isMobile) return;
+        e.preventDefault();
+        const to = "renjansree10@gmail.com";
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        const deepLink = isIOS ? `googlegmail:///co?to=${to}` : `googlegmail://co?to=${to}`;
+        window.location.href = deepLink;
+        setTimeout(() => {
+          window.location.href = `mailto:${to}`;
+        }, 900);
+      });
+    }
 
     // CTA scroll
     const getWebsiteBtn = document.getElementById("getWebsiteBtn");
