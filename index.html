@@ -597,6 +597,15 @@
       .nav.open .nav-links{ display:flex; }
       .hero{ padding-top:0; padding-bottom:0; overflow:hidden; }
       .project-preview{ min-height:320px; }
+      .hero-cta{ gap:8px; }
+      .hero-cta .btn{
+        padding:8px 12px;
+        font-size:13px;
+      }
+      .hero-cta .btn .icon{
+        width:14px;
+        height:14px;
+      }
       .projects-head{ text-align:center; justify-content:center; }
       .projects .subtitle{ margin-left:auto; margin-right:auto; }
       .skills h2{ text-align:center; }
@@ -727,12 +736,12 @@
         <h1>I build fast, modern static websites for businesses.</h1>
         <p>Clean UI/UX, responsive design, and fast performance that help visitors trust you and contact you.</p>
         <div class="hero-cta">
-          <button class="btn primary">Get Website
+          <button class="btn primary" id="getWebsiteBtn">Get Website
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 9h16M9 9V7a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v2M6 9v8a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/>
             </svg>
           </button>
-          <button class="btn ghost">View Projects
+          <button class="btn ghost" id="viewProjectsBtn">View Projects
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
             </svg>
@@ -965,6 +974,22 @@
     document.querySelectorAll(".nav-links a").forEach(link => {
       link.addEventListener("click", () => siteNav.classList.remove("open"));
     });
+
+    // CTA scroll
+    const getWebsiteBtn = document.getElementById("getWebsiteBtn");
+    if (getWebsiteBtn) {
+      getWebsiteBtn.addEventListener("click", () => {
+        const target = document.getElementById("contact");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+    const viewProjectsBtn = document.getElementById("viewProjectsBtn");
+    if (viewProjectsBtn) {
+      viewProjectsBtn.addEventListener("click", () => {
+        const target = document.getElementById("projects");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
   </script>
 </body>
 </html>
