@@ -705,7 +705,24 @@
       .skills h2{ text-align:center; }
       .skills-grid{ justify-items:center; }
       .orbital{ width:min(100%, 340px); height:260px; }
-      .skill-chip{ white-space:nowrap; font-size:11px; padding:6px 10px; }
+      .skill-chip{ white-space:nowrap; font-size:11px; padding:5px 10px; line-height:1.1; }
+      .orbital .skill-chip:nth-child(3),
+      .orbital .skill-chip:nth-child(4){
+        top:16%;
+      }
+      .orbital .skill-chip:nth-child(3){ left:8%; right:auto; }
+      .orbital .skill-chip:nth-child(4){ right:8%; left:auto; }
+      .orbital .skill-chip:nth-child(5),
+      .orbital .skill-chip:nth-child(6){
+        top:69%;
+      }
+      .orbital .skill-chip:nth-child(5){ left:8%; right:auto; }
+      .orbital .skill-chip:nth-child(6){ right:8%; left:auto; }
+      .orbital .skill-chip:last-child{
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+      }
       .divider{ margin:20px 0; }
       .projects{ padding:16px 0 36px; }
       .skills{ padding:20px 0 36px; }
